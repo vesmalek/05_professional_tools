@@ -5,6 +5,22 @@
 #     - Returns the result if successful
 #     Test with: (10, 2), (10, 0), (10, "five")
 
+def safe_divide(a, b):
+    try:
+        a / b
+    except ZeroDivisionError:
+        return "Cannot divide by zero"
+    except TypeError:
+        return "Both inputs must be numbers"
+    else:
+        return a / b
+
+print()
+print("Question 01:")
+print(f"{safe_divide(10, 2)}")
+print(f"{safe_divide(10, 0)}")
+print(f"{safe_divide(10, "five")}")
+
 # Q2. Write a function called get_user(users, username) that:
 #     - Accepts a dict of users and a username to look up
 #     - Tries to access users[username]
