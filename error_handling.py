@@ -17,6 +17,7 @@ def safe_divide(a, b):
 
 print()
 print("Question 01:")
+print('-' * 24)
 print(f"{safe_divide(10, 2)}")
 print(f"{safe_divide(10, 0)}")
 print(f"{safe_divide(10, "five")}")
@@ -27,6 +28,26 @@ print(f"{safe_divide(10, "five")}")
 #     - Catches KeyError and returns "User not found"
 #     - Returns the user data if found
 #     Test with an existing and non-existing username
+
+users = {
+    "jdoe": "John Doe",
+    "asmith": "Alice Smith",
+    "bwayne": "Bruce Wayne"
+}
+
+def get_user(users, username):
+    try:
+        users[username]
+    except KeyError:
+        return "User not found"
+    else:
+        return f"{username} - {users[username]} found!"
+
+print()
+print("Question 02:")
+print('-' * 24)
+print(f"{get_user(users, 'izzy')}")
+print(f"{get_user(users, 'jdoe')}")
 
 # Q3. Write a function called create_account(username, password) that:
 #     - Raises ValueError if username is empty
