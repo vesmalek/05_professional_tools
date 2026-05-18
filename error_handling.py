@@ -56,6 +56,44 @@ print(f"{get_user(users, 'jdoe')}")
 #     Wrap the calls in try/except and print the result
 #     Test with valid and invalid inputs
 
+def create_account(username, password):
+    if not username:
+        raise ValueError("Username is empty")
+    elif len(password) < 8:
+        raise ValueError("Password should 8 characters or more!")
+    return {"success": True, "username": username}
+
+print()
+print("Question 03:")
+print('-' * 24)
+
+# Valid Inputs
+try:
+    create_account('izzy', 'hgabjhd63y68qu3')
+except ValueError as e:
+    print(f"Error: {e}")
+else:
+    print(f"{create_account('izzy', 'hgabjhd63y68qu3')}")
+
+# No Username
+try:
+    create_account('', 'hgabjhd63y68qu3')
+except ValueError as e:
+    print(f"Error: {e}")
+else:
+    print(f"{create_account('', 'hgabjhd63y68qu3')}")
+
+# Short password
+
+try:
+    create_account('izzy', 'qu3')
+except ValueError as e:
+    print(f"Error: {e}")
+else:
+    print(f"{create_account('izzy', 'qu3')}")
+
+
+
 # Q4. Write a function called process_order(product, quantity, price) that:
 #     Uses the full try/except/else/finally structure:
 #     - try: validate that quantity and price are greater than 0
