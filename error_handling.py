@@ -132,7 +132,67 @@ print(f"{process_order('bananas', 12, -2.5)}")
 #     - deposit(amount): raise ValueError if amount <= 0
 #     - withdraw(amount): raise ValueError if amount <= 0
 #                         raise ValueError if amount > balance
+
+class BankAccount:
+    def __init__(self, owner, opening_balance):
+        self.name = owner
+        self.balance = opening_balance
+        print(f"Account created ✅. Balance: ${self.balance:,}")
+
+    def deposit(self, amount):
+        if amount <= 0:
+            raise ValueError("Deposit amount must be greater than 0")
+        self.balance += amount
+        print(f"Deposit of ${amount:,} is successful! Your current balance is ${self.balance:,}")
+
+    def withdraw(self, amount):
+        if amount <= 0:
+            raise ValueError("Withdrawal amount must be greater than 0")
+        if amount > self.balance:
+            raise ValueError("Withdrawal amount can not be higher than account balance")
+        self.balance -= amount
+        print(f"Withdrawal of ${amount:,} is successful! Your current balance is ${self.balance:,}")
+
+print()
+print("Question 05:")
+print('-' * 24)
+
 #     Wrap all method calls in try/except when testing
 #     and print a clean error message for each failure case
 #     Test: deposit valid, deposit negative,
 #           withdraw valid, withdraw more than balance
+
+my_account = BankAccount('Imran', 350)
+
+# deposit valid
+try:
+    my_account.deposit(4550)
+except ValueError as e:
+    print(f"Error: {str(e)}")
+
+# deposit negative
+try:
+    my_account.deposit(-15)
+except ValueError as e:
+    print(f"Error: {str(e)}")
+
+# withdraw valid
+
+try:
+    my_account.withdraw(50)
+except ValueError as e:
+    print(f"Error: {str(e)}")
+
+# withdraw negative
+
+try:
+    my_account.withdraw(-35)
+except ValueError as e:
+    print(f"Error: {str(e)}")
+
+# withdraw more than balance
+
+try:
+    my_account.withdraw(15000)
+except ValueError as e:
+    print(f"Error: {str(e)}")
