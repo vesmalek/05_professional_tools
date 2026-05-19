@@ -295,3 +295,58 @@ else:
 #     Test creating a valid order and paying correctly
 #     Test creating an order with invalid quantity
 #     Test paying with insufficient amount
+
+class OrderError(Exception):
+    pass
+
+class InvalidQuantityError(OrderError):
+    pass
+
+class PaymentError(OrderError):
+    pass
+
+class Order:
+    def __init__(self, product, quantity, price_per_unit):
+        if quantity <= 0:
+            raise InvalidQuantityError("Order failed! Quantity must be greater than zero")
+        self.product = product
+        self.quantity = quantity
+        self.price_per_unit = price_per_unit
+        self.total = quantity * price_per_unit
+
+    def pay(self, amount_paid):
+        if amount_paid < self.total:
+            raise PaymentError(f"Payment unsuccessful. Shortfall ${(self.total - amount_paid):,}")
+        print(f"${amount_paid:,} paid successfully!")
+        
+    def __str__(self):
+        return f"Order: {self.product} x{self.quantity} — ${self.total}"
+
+print()
+print("Question 05:")
+print('-' * 24)
+
+try:
+    my_order = Order('dragon fruit', 3, 10)
+except InvalidQuantityError as e:
+    print(f"Error: {str(e)}")
+else:
+    print(f"{my_order} successfully created!")
+
+try:
+    my_order.pay(30)
+except PaymentError as e:
+    print(f"Error: {str(e)}")
+
+try:
+    invalid_order = Order('dragon fruit', -2, 10)
+except InvalidQuantityError as e:
+    print(f"Error: {str(e)}")
+else:
+    print(f"{my_order} successfully created!")
+
+try:
+    my_order.pay(15)
+except PaymentError as e:
+    print(f"Error: {str(e)}")
+
