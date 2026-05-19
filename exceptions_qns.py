@@ -12,6 +12,78 @@
 #     Test with try/except catching each specific exception
 #     and one valid call that passes all checks
 
+class InvalidAgeError(Exception):
+    pass
+
+class InvalidEmailError(Exception):
+    pass
+
+class InvalidPasswordError(Exception):
+    pass
+
+def validate_user(email, age, password):
+    if "@" not in email:
+        raise InvalidEmailError("Invalid email format")
+
+    if age < 18:
+        raise InvalidAgeError("Must be 18 or above!")
+    
+    if len(password) < 8:
+        raise InvalidPasswordError("Password must be at least 8 characters long")
+    
+    return {"valid": True}
+
+print()
+print("Question 01:")
+print('-' * 24)
+
+# valid data
+try:
+    result = validate_user('john@abc.com', 35, 'abi489ginia')
+except InvalidEmailError as e:
+    print(f"Error: {str(e)}")
+except InvalidAgeError as e:
+    print(f"Error: {str(e)}")
+except InvalidPasswordError as e:
+    print(f"Error: {str(e)}")
+else:
+    print(f"{result}")
+
+# invalid email
+try:
+    result = validate_user('johnabc.com', 35, 'abi489ginia')
+except InvalidEmailError as e:
+    print(f"Error: {str(e)}")
+except InvalidAgeError as e:
+    print(f"Error: {str(e)}")
+except InvalidPasswordError as e:
+    print(f"Error: {str(e)}")
+else:
+    print(f"{result}")
+
+# invalid age
+try:
+    result = validate_user('john@abc.com', 17, 'abi489ginia')
+except InvalidEmailError as e:
+    print(f"Error: {str(e)}")
+except InvalidAgeError as e:
+    print(f"Error: {str(e)}")
+except InvalidPasswordError as e:
+    print(f"Error: {str(e)}")
+else:
+    print(f"{result}")
+
+# shorter password
+try:
+    result = validate_user('john@abc.com', 35, 'hia')
+except InvalidEmailError as e:
+    print(f"Error: {str(e)}")
+except InvalidAgeError as e:
+    print(f"Error: {str(e)}")
+except InvalidPasswordError as e:
+    print(f"Error: {str(e)}")
+else:
+    print(f"{result}")
 
 
 # Q2. Create a custom exception called InsufficientFundsError
