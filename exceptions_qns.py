@@ -173,6 +173,62 @@ except ValueError as e:
 #     b) The parent (ProductError) — show it catches both product errors
 #     c) The base (AppError) — show it catches everything app-level
 
+class AppError(Exception):
+    pass
+
+class ProductError(AppError):
+    pass
+
+class OutOfStockError(ProductError):
+    pass
+
+class InvalidPriceError(ProductError):
+    pass
+
+def process_product(name, price, stock):
+    if price <= 0:
+        raise InvalidPriceError("Price must be greater than zero")
+    
+    if stock == 0:
+        raise OutOfStockError(f"{name} is out of stock!")
+    
+    return {'name': name, 'price': price, 'stock': stock}
+
+print()
+print("Question 03:")
+print('-' * 24)
+
+try:
+    result = process_product('spinach', 2.50, 0)
+except OutOfStockError as e:
+    print(f"Error: {str(e)}")
+else:
+    print(f"{str(result)}")
+
+# ProductError
+try:
+    result = process_product('spinach', -1, 5)
+except ProductError as e:
+    print(f"Error: {str(e)}")
+else:
+    print(f"{str(result)}")
+
+try:
+    result = process_product('spinach', 5.50, 0)
+except ProductError as e:
+    print(f"Error: {str(e)}")
+else:
+    print(f"{str(result)}")
+
+# AppError
+try:
+    result = process_product('spinach', -1, 5)
+except AppError as e:
+    print(f"Error: {str(e)}")
+else:
+    print(f"{str(result)}")
+
+
 # Q4. Combine raise with re-raise:
 #     Write a function called get_product(products, product_id) that:
 #     - Raises KeyError if product_id not in products
