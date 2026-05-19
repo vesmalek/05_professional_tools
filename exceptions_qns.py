@@ -102,7 +102,7 @@ class InsufficientFundsError(Exception):
     def __init__(self, balance, amount):
         self.balance = balance
         self.amount = amount
-        self.shortfall = balance - amount
+        self.shortfall = amount - balance
         super().__init__(
             f"Cannot withdraw ${amount:,}. Current balance: ${balance:,}. Shortfall: ${self.shortfall:,}."
         )
@@ -115,7 +115,7 @@ class BankAccount:
 
     def withdraw(self, amount):
         if amount > self.balance:
-            raise InsufficientFundsError
+            raise InsufficientFundsError(self.balance, amount)
         
         if amount <= 0:
             raise ValueError("Withdrawal unsuccessful! Amount must be greater than zero")
@@ -149,6 +149,11 @@ except ValueError as e:
 try:
     my_account.withdraw(700)
 except ValueError as e:
+    print(f"Error: {str(e)}")
+
+try:
+    my_account.withdraw(700000)
+except InsufficientFundsError as e:
     print(f"Error: {str(e)}")
 
 try:
