@@ -7,20 +7,20 @@
 
 def safe_divide(a, b):
     try:
-        a / b
+        result = a / b
     except ZeroDivisionError:
         return "Cannot divide by zero"
     except TypeError:
         return "Both inputs must be numbers"
     else:
-        return a / b
+        return result
 
 print()
 print("Question 01:")
 print('-' * 24)
 print(f"{safe_divide(10, 2)}")
 print(f"{safe_divide(10, 0)}")
-print(f"{safe_divide(10, "five")}")
+print(f"{safe_divide(10, 'five')}")
 
 # Q2. Write a function called get_user(users, username) that:
 #     - Accepts a dict of users and a username to look up
@@ -37,11 +37,11 @@ users = {
 
 def get_user(users, username):
     try:
-        users[username]
+        user = users[username]
     except KeyError:
         return "User not found"
     else:
-        return f"{username} - {users[username]} found!"
+        return f"{username} - {user} found!"
 
 print()
 print("Question 02:")
@@ -69,11 +69,11 @@ print('-' * 24)
 
 # Valid Inputs
 try:
-    create_account('izzy', 'hgabjhd63y68qu3')
+    result = create_account('izzy', 'hgabjhd63y68qu3')
 except ValueError as e:
     print(f"Error: {e}")
 else:
-    print(f"{create_account('izzy', 'hgabjhd63y68qu3')}")
+    print(f"{result}")
 
 # No Username
 try:
