@@ -270,6 +270,16 @@ except KeyError as e:
 else:
     print(f"Found! {prod_id} is in {my_products}")
 
+
+prod_id_2 = '12' 
+
+try:
+    result = fetch_product(my_products, prod_id_2)
+except KeyError as e:
+    print(f"Error: {str(e)}")
+else:
+    print(f"Found! {prod_id_2} is in {my_products}")
+
 # Q5. Combine everything — OOP, error handling, custom exceptions:
 #     Create these exceptions: OrderError(Exception),
 #     InvalidQuantityError(OrderError), PaymentError(OrderError)
