@@ -241,6 +241,35 @@ else:
 #     Wrap the fetch_product call in a try/except
 #     and show the error propagating through both functions
 
+my_products = ['12', '13', '15', '24']
+
+def get_product(products, product_id):
+    if product_id not in products:
+        raise KeyError(f"{product_id} not in products.")
+    return product_id
+    
+def fetch_product(products, product_id):
+    try:
+        result = get_product(products, product_id)
+    except KeyError as e:
+        print(f"Product lookup failed: {e}")
+        raise
+    else:
+        return result
+
+print()
+print("Question 04:")
+print('-' * 24)
+
+prod_id = '17' 
+
+try:
+    result = fetch_product(my_products, prod_id)
+except KeyError as e:
+    print(f"Error: {str(e)}")
+else:
+    print(f"Found! {prod_id} is in {my_products}")
+
 # Q5. Combine everything — OOP, error handling, custom exceptions:
 #     Create these exceptions: OrderError(Exception),
 #     InvalidQuantityError(OrderError), PaymentError(OrderError)
