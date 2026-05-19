@@ -98,6 +98,65 @@ else:
 #
 #     Test both failure cases and print the exception's message cleanly
 
+class InsufficientFundsError(Exception):
+    def __init__(self, balance, amount):
+        self.balance = balance
+        self.amount = amount
+        self.shortfall = balance - amount
+        super().__init__(
+            f"Cannot withdraw ${amount:,}. Current balance: ${balance:,}. Shortfall: ${self.shortfall:,}."
+        )
+
+class BankAccount:
+    def __init__(self, owner, balance=0):
+        self.owner = owner
+        self.balance = balance
+        print(f"Account created ✅. Balance: ${self.balance:,}")
+
+    def withdraw(self, amount):
+        if amount > self.balance:
+            raise InsufficientFundsError
+        
+        if amount <= 0:
+            raise ValueError("Withdrawal unsuccessful! Amount must be greater than zero")
+        
+        self.balance -= amount
+        print(f"${amount:,} Withdrawal successful ✅. Current balance: ${self.balance:,}")
+        
+    def deposit(self, amount):
+        if amount <= 0:
+            raise ValueError("Deposit unsuccessful! Amount must be greater than zero")
+        
+        self.balance += amount
+        print(f"${amount:,} Deposit successful ✅. Current balance: ${self.balance:,}")
+
+print()
+print("Question 02:")
+print('-' * 24)
+
+my_account = BankAccount('Mohammed', 1500)
+
+try:
+    my_account.deposit(500)
+except ValueError as e:
+    print(f"Error: {str(e)}")
+
+try:
+    my_account.deposit(-500)
+except ValueError as e:
+    print(f"Error: {str(e)}")
+
+try:
+    my_account.withdraw(700)
+except ValueError as e:
+    print(f"Error: {str(e)}")
+
+try:
+    my_account.withdraw(-500)
+except ValueError as e:
+    print(f"Error: {str(e)}")
+
+
 # Q3. Build an exception hierarchy:
 #     - AppError(Exception) — base
 #     - ProductError(AppError) — base for product issues
