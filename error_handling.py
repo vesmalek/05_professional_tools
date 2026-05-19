@@ -104,6 +104,29 @@ else:
 #     - finally: print "process_order() called" every time
 #     Test with valid and invalid inputs
 
+def process_order(product, quantity, price):
+    try:
+        if quantity <= 0:
+            raise ValueError("Quantity must be greater than 0")
+        if price <= 0:
+            raise ValueError("Price must be greater than 0")
+        total = quantity * price
+    except ValueError as e:
+        return {"success": False, "error": str(e)}
+    else:
+        return {"success": True, "total": total}
+    finally:
+        print("process_order() called")
+
+print()
+print("Question 04:")
+print('-' * 24)
+
+print(f"{process_order('apples', 12, 3.99)}")
+print(f"{process_order('oranges', -5, 3.99)}")
+print(f"{process_order('bananas', 12, -2.5)}")
+
+
 # Q5. Combine error handling with OOP:
 #     Add error handling to this BankAccount class:
 #     - deposit(amount): raise ValueError if amount <= 0
