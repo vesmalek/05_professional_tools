@@ -129,3 +129,24 @@ else:
 #     Then read it back using json.load()
 #     Loop through the loaded data and print only active users
 #     in this format: "ismail (admin) — ismail@mail.com"
+
+users = [
+    {'username': 'Farid', 'email': 'farid@abc.com', 'role': 'admin', 'is_active': True},
+    {'username': 'Hassan', 'email': 'hassan@abc.com', 'role': 'viewer', 'is_active': False},
+    {'username': 'Khalid', 'email': 'khalid@abc.com', 'role': 'support', 'is_active': True}
+]
+
+# writing to file
+with open("users.json", "w") as f:
+    json.dump(users, f, indent=4)
+
+with open("users.json", "r") as f:
+    loaded = json.load(f)
+
+
+print()
+print("Question 05:")
+for user in loaded:
+    if user['is_active'] == True:
+        print(f"{user['username']} ({user['role']}) — {user['email']}")
+
