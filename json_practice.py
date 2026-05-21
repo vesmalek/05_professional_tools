@@ -40,6 +40,10 @@ my_order = json.loads(json_str)
 print()
 print("Question 02:")
 print(my_order['customer'])
+print(my_order['items'][0]['product'])
+print(my_order['paid'])
+print(type(my_order['paid']))
+print(my_order['notes'])
 
 # Q3. Write a function called build_api_response(success, data, message)
 #     that builds and returns a JSON string in this structure:
