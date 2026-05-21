@@ -33,6 +33,14 @@ print(type(json_string))
 #     c) Print whether it's paid (confirm it's a Python bool, not a string)
 #     d) Print the notes value and confirm it came back as None
 
+json_str = '{"order_id": 201, "customer": "Ismail", "items": [{"product": "shirt", "qty": 2}, {"product": "shoes", "qty": 1}], "paid": true, "notes": null}'
+
+my_order = json.loads(json_str)
+
+print()
+print("Question 02:")
+print(my_order['customer'])
+
 # Q3. Write a function called build_api_response(success, data, message)
 #     that builds and returns a JSON string in this structure:
 #     {
