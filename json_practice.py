@@ -83,45 +83,31 @@ print(build_api_response(False, {}, 'NOT OK!'))
 def parse_payment_response(json_string):
     try:
         result = json.loads(json_string)
-    except json.JSONDecodeError as e:
-        raise Exception('json is invalid')
+    except json.JSONDecodeError:
+        return "Error: Invalid JSON"
 
     try:
         status = result['status']
+        if status == 'success':
+            return f"Payment confirmed. Ref: {result['ref_id']}"
+        elif status == 'failed':
+            return f"Payment failed: {result['reason']}"
     except KeyError as e:
-        raise Exception('status is invalid')
+        return f"Error: Missing field {e}"
 
-    try:
-        ref_id = result['ref_id']
-    except KeyError as e:
-        raise Exception('ref_id is invalid')
-
-    try:
-        reason = result['reason']
-    except KeyError as e:
-        print(f"reason Error: {str(e)}")
-        raise Exception('reason is invalid')
-
-    if status.lower() == 'success':
-        return f'Payment confirmed. Ref: {ref_id}'
-    elif status.lower() == 'failed':
-        return f'Payment failed: {reason}'
-
-json_string = json.dumps(
-    {
-        'ref_id': 'HGAD7368QBFADI',
-        'reason': 'Good execution!'
-    }
-)
+# Test data
+success = '{"status": "success", "ref_id": "HGAD7368QBFADI"}'
+failed = '{"status": "failed", "reason": "Insufficient balance"}'
+broken = '{"status": "success", ref_id: missing_quotes}'
+missing_field = '{"status": "success"}'
 
 print()
 print("Question 04:")
-try:
-    message = parse_payment_response(json_string)
-except Exception as e:
-    print(f"Error!! {str(e)}")  
-else:
-    print(message)
+
+print(parse_payment_response(success))
+print(parse_payment_response(failed))
+print(parse_payment_response(broken))
+print(parse_payment_response(missing_field))
 
 # Q5. Create a list of at least 3 user dicts, each with:
 #     username, email, role, is_active
