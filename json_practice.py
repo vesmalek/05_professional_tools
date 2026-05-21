@@ -8,7 +8,7 @@ import json
 
 product = {
     'name': 'tomato',
-    'price': '3.99',
+    'price': 3.99,
     'in_stock': True,
     'quantity': 10,
     'seller': {
