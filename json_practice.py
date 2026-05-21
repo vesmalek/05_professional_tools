@@ -56,6 +56,21 @@ print(my_order['notes'])
 #     once with success=False and empty data {}
 #     Print both results with indent=4
 
+def build_api_response(success, data, message):
+    response = {
+        'success': success,
+        'message': message,
+        'data': data
+    }
+
+    return json.dumps(response, indent=4)
+
+print()
+print("Question 03:")
+print(build_api_response(True, {'username': 'izzy', 'location': 'Oregon, US'}, 'OK!'))
+print()
+print(build_api_response(False, {}, 'NOT OK!'))
+
 # Q4. Write a function called parse_payment_response(json_string) that:
 #     - Parses the JSON string
 #     - Catches json.JSONDecodeError if the string is invalid
@@ -64,6 +79,49 @@ print(my_order['notes'])
 #     - If "status" is "failed", returns "Payment failed: {reason}"
 #     Test with a success response, a failed response, broken JSON,
 #     and a valid JSON missing a required field
+
+def parse_payment_response(json_string):
+    try:
+        result = json.loads(json_string)
+    except json.JSONDecodeError as e:
+        raise Exception('json is invalid')
+
+    try:
+        status = result['status']
+    except KeyError as e:
+        raise Exception('status is invalid')
+
+    try:
+        ref_id = result['ref_id']
+    except KeyError as e:
+        raise Exception('ref_id is invalid')
+
+    try:
+        reason = result['reason']
+    except KeyError as e:
+        print(f"reason Error: {str(e)}")
+        raise Exception('reason is invalid')
+
+    if status.lower() == 'success':
+        return f'Payment confirmed. Ref: {ref_id}'
+    elif status.lower() == 'failed':
+        return f'Payment failed: {reason}'
+
+json_string = json.dumps(
+    {
+        'ref_id': 'HGAD7368QBFADI',
+        'reason': 'Good execution!'
+    }
+)
+
+print()
+print("Question 04:")
+try:
+    message = parse_payment_response(json_string)
+except Exception as e:
+    print(f"Error!! {str(e)}")  
+else:
+    print(message)
 
 # Q5. Create a list of at least 3 user dicts, each with:
 #     username, email, role, is_active
