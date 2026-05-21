@@ -1,8 +1,29 @@
+import json
+
 # Q1. Create a Python dictionary representing a product with at least
 #     5 keys including a nested dict for "seller" (name, location)
 #     and a list for "tags"
 #     Convert it to a JSON string using json.dumps() with indent=4
 #     Print the result and print its type to confirm it's a string
+
+product = {
+    'name': 'tomato',
+    'price': '3.99',
+    'in_stock': True,
+    'quantity': 10,
+    'seller': {
+        'name': 'Issam',
+        'location': 'Mbweni, Zanzibar',
+        'tags': ['groceries', 'fruit', 'fresh']
+    }
+}
+
+json_string = json.dumps(product, indent=4)
+
+print()
+print("Question 01:")
+print(json_string)
+print(type(json_string))
 
 # Q2. Take this JSON string and parse it into a Python dict:
 #     json_str = '{"order_id": 201, "customer": "Ismail", "items": [{"product": "shirt", "qty": 2}, {"product": "shoes", "qty": 1}], "paid": true, "notes": null}'
