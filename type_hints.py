@@ -1,3 +1,5 @@
+from typing import Optional
+# 
 # Q1. Add type hints to all parameters and return types
 #     for the following functions:
 #
@@ -31,6 +33,7 @@ def deactivate_user(username : str) -> None:
 #     It should return a dict[str, any]
 #     Call it twice — once with all arguments, once with only required ones
 
+def create_product(name: str, price: float, tags: list[str], category: str = 'General', description: Optional[str] = None) -> dict[str, any]:
 
 
 # Q3. Rewrite this class with full type hints on __init__ and all methods:
