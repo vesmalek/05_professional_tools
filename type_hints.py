@@ -13,11 +13,25 @@
 #     def deactivate_user(username):
 #         print(f"{username} deactivated")
 
+def greet(username: str) -> str:
+    return f"Welcome, {username}!"
+
+def calculate_tax(price : float, rate : float) -> float:
+    return price * rate
+
+def is_admin(role : str) -> bool:
+    return role == "admin"
+
+def deactivate_user(username : str) -> None:
+    print(f"{username} deactivated")
+
 # Q2. Write a function called create_product that takes:
 #     name: str, price: float, tags: list[str],
 #     category: str = "General", description: Optional[str] = None
 #     It should return a dict[str, any]
 #     Call it twice — once with all arguments, once with only required ones
+
+
 
 # Q3. Rewrite this class with full type hints on __init__ and all methods:
 #
